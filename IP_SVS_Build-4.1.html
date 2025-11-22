@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SVG Layout with Tools</title>
+  <link rel="stylesheet" href="ip_Build4.1.css" />
+</head>
+<body>
+  <div class="button actions" id="actions-button">
+    ACTIONS
+    <div class="action-options">
+      <button class="action-button" id="build-btn">Build</button>
+      <button class="action-button" id="translate-btn">Translate</button>
+      <button class="action-button" id="save-btn">Save</button>
+    </div>
+  </div>
+
+  <div class="button tools" id="tools-button">
+    TOOLS
+    <div class="tool-options">
+      <div class="tool-block">
+        <button class="tool-button" data-tool="Subject">Subject</button>
+        <div class="tool-grid hidden" id="Subject-grid"></div>
+      </div>
+      <div class="tool-block">
+        <button class="tool-button" data-tool="Verb">Verb</button>
+        <div class="tool-grid hidden" id="Verb-grid"></div>
+      </div>
+      <div class="tool-block">
+        <button class="tool-button" data-tool="Object">Object</button>
+        <div class="tool-grid hidden" id="Object-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="button reset" id="reset-button">Reset</div>
+  <div class="button info" id="info-button">Info</div>
+  <div id="info-box" class="hidden">
+    <p>Ordering Semantics</p>
+    <p>Use the Tools section to pick Subjects, Verbs, and Objects, then drag them into the bottom panel.
+      In the Actions menu, click Build to arrange them into a sentence, Translate to convert numbers into words, and Save to store your sentence.</p>
+  </div>
+  
+  <div class="top-panel" id="top-panel">
+    <img src="IP_SvS_BUILD-shapes-v2-11.svg" alt="Top Panel" />
+    <div class="drop-target" id="top-drop-target"></div>
+  </div>
+
+  <div class="center-panel" id="center-panel">
+    <img src="IP_SvS_BUILD-shapes-v2-12.svg" alt="Center Panel" />
+  </div>
+
+  <!-- SAVE PANEL -->
+  <div id="save-panel" style="display: none; position: relative;">
+    <object type="image/svg+xml" data="IP_SvS_translate-13--w-13.svg" style="width: 100%; height: auto;"></object>
+    <div id="saved-content"></div>
+  </div>
+
+  <script src="script_4.1.js"></script>
+</body>
+</html>

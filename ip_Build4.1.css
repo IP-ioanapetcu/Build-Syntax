@@ -1,0 +1,356 @@
+@font-face {
+  font-family: 'ABCFavorit';
+  src: url('ABCFavoritEdu-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ABCFavorit';
+  src: url('ABCFavoritEdu-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ABCFavoritLining';
+  src: url('ABCFavoritLiningEdu-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root {
+  --top-margin: 20px;
+  --panel-gap: 40px; /* ⬅️ Reduced to fix excessive space between panels */
+}
+
+body {
+  margin: 0;
+  background-color: blue;
+  font-family: 'ABCFavorit', sans-serif;
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* BUTTONS */
+.button {
+  background-color: red;
+  color: black;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* Action panel */
+.actions {
+  top: var(--top-margin);
+  left: 20px;
+  right: 20px;
+  width: 18%;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+  transition: height 0.3s ease;
+  clip-path: polygon(0 0, 75% 0%, 100% 0, 100% 100%, 0 100%, 0% 50%);
+}
+
+.actions.expanded {
+  height: auto;
+  overflow: visible;
+}
+
+.action-options {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.actions.expanded .action-options {
+  display: flex;
+}
+
+.action-button {
+  background-color: #c1c1c1;
+  border: none;
+  width: 100%;
+  height: 52px;
+  font-family: 'ABCFavorit', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Tools */
+.tools {
+  top: var(--top-margin);
+  right: 20px;
+  width: 18%;
+  min-height: 20%;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 100%, 70% 100%, 30% 100%, 0 100%, 0% 30%);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  transition: height 0.3s ease;
+  overflow: hidden;
+}
+
+.tools.expanded {
+  height: auto;
+  overflow: visible;
+}
+
+.tool-options {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 30%;
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.tools.expanded .tool-options {
+  display: flex;
+}
+
+.tool-button {
+  background-color: #c1c1c1;
+  border: none;
+  width: 100%;
+  height: 60px;
+  font-family: 'ABCFavorit', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  box-sizing: border-box;
+  border-radius: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 2px;
+  margin-top: 5px;
+  font-family: 'ABCFavorit', sans-serif;
+}
+
+/* Colored by type */
+.tool-grid button {
+  padding: 10px;
+  font-size: 16px;
+  font-family: 'ABCFavorit', sans-serif;
+  font-weight: bold;
+  cursor: grab;
+  border: none;
+  border-radius: 0px;
+  transition: background-color 0.2s ease;
+}
+
+/* Coloring by tool type */
+.tool-grid button[data-tool="Subject"] {
+  background-color: rgb(255, 0, 0); /* soft pink */
+  color: #c1c1c1;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);}
+
+
+.tool-grid button[data-tool="Verb"] {
+  background-color: rgb(255, 0, 0); /* soft pink */
+  color: #c1c1c1;
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);}
+
+
+.tool-grid button[data-tool="Object"] {
+  background-color: rgb(255, 0, 0); /* soft pink */
+  color: #c1c1c1;
+  clip-path: polygon(25% 0%, 100% 0, 100% 100%, 25% 100%, 0% 50%);}
+
+.tool-grid button:hover {
+  opacity: 0.9;
+}
+
+.tool-grid button:active {
+  cursor: grabbing;
+  background-color: #999;
+}
+/* Reset button */
+.reset {
+  bottom: 20px;
+  left: 20px;
+  width: 300px;
+  height: 60px;
+}
+
+/* PANELS */
+.top-panel {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 58%;
+  height: auto;
+  font-size: 16px;
+  position: relative; /* Needed for absolute children (like dropped words) */
+}
+
+.center-panel {
+  position: absolute;
+  top: calc(var(--top-margin) + 10px + var(--panel-gap));
+  left: 50%;
+  transform: translateX(-50%);
+  width: 58%;
+  height: auto;
+  position: relative;
+  font-size: 16px;
+}
+
+.top-panel img,
+.center-panel img {
+  width: 100%;
+  height: auto;
+  display: block;
+  vertical-align: top;
+}
+
+/* Drop target overlay (for top panel) */
+#top-drop-target {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Ensures clicks pass through */
+  z-index: 1;
+}
+
+/* DROPPED WORDS */
+.dropped {
+  position: absolute;
+  background: blue;
+  color: #c1c1c1;
+  font-weight: normal;
+  padding: 25px 30px;
+  border: none;
+  cursor: pointer;
+  font-family: 'ABCFavorit', sans-serif;
+  font-size: 18px;
+  transform: translate(-50%, -50%);
+}
+.dropped[data-tool="Subject"] {
+  background-color: blue; /* soft pink */
+  color: #c1c1c1;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);}
+
+.dropped[data-tool="Verb"] {
+  background-color: blue; /* soft pink */
+  color: #c1c1c1;
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);}
+.dropped[data-tool="Object"] {
+  background-color: blue; /* soft pink */
+  color: #c1c1c1;
+  clip-path: polygon(25% 0%, 100% 0, 100% 100%, 25% 100%, 0% 50%);}
+
+
+
+  .save-svg {
+    display: none;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 200px;
+    z-index: 10;
+  }
+  
+  .saved-text {
+    font-size: 16px;
+    text-align: center;
+    color: black;
+  }
+  
+  /* Hide Panels (used for toggle logic) */
+  .hidden {
+    display: none !important;
+  }
+
+  #save-panel {
+    display: none;
+    position: absolute;         /* Make it float above everything */
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1000px;
+    height: auto;
+    z-index: 100;               /* Ensure it's on top */
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  #save-wrapper {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  
+  #saved-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: black;
+    font-family: 'ABCFavoritLining', sans-serif;
+    font-size: clamp(24px, 5vw, 30px);
+    font-weight: normal;
+    pointer-events: none;
+    width: 80%;
+  }
+
+  .info {
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    height: 60px;
+    position: absolute;
+  }
+  
+  /* Info box */
+  #info-box {
+    position: absolute;
+    bottom: 90px;
+    right: 20px;
+    width: 300px;
+    padding: 20px;
+    background-color: red;
+    color: black;
+    font-size: 16px;
+    font-family: 'ABCFavorit', sans-serif;
+    text-align: center;
+    z-index: 1000;
+  }
+  
+  .hidden {
+    display: none !important;
+  }
